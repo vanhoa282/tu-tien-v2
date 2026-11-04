@@ -635,6 +635,12 @@
     }, 6800);
   }
 
+  // Mở khóa âm thanh bằng 1 lần chạm bất kỳ lên sân khấu (kể cả chế độ ?obs=1 không có dock):
+  // trình duyệt bắt buộc phải có thao tác tay mới cho phát nhạc/giọng đọc.
+  document.getElementById('stage9x16')?.addEventListener('pointerdown', () => {
+    try { audio.ensureContext(); } catch (_) {}
+  }, { once: true });
+
   // 8. Kết nối JSON-RPC 2.0 WebSocket & Gửi Lệnh RPC
   let ws = null;
   let rpcId = 1;
