@@ -254,7 +254,7 @@
 <script>
 (function(){
   if (new URLSearchParams(location.search).get('diag') !== '1') return;
-  var box = document.getElementById('diagBox'); box.style.display = 'block';
+  var box = document.getElementById('diagBox'); box.style.display = 'block'; box.style.pointerEvents = 'none';
   function report(){
     var w = document.getElementById('stageWrapper');
     var s = document.getElementById('stage9x16');
@@ -271,6 +271,22 @@
     lines.push('bg src: ' + (bg ? bg.currentSrc : 'NO'));
     lines.push('bg display/vis/opacity: ' + (cs ? cs.display + '/' + cs.visibility + '/' + cs.opacity : 'NO'));
     lines.push('hall children: ' + (hall ? hall.children.length : 'NO'));
+    var bgr = bg ? bg.getBoundingClientRect() : null;
+    lines.push('bg rect: ' + (bgr ? bgr.left.toFixed(0) + ',' + bgr.top.toFixed(0) + ' ' + bgr.width.toFixed(0) + 'x' + bgr.height.toFixed(0) : 'NO'));
+    var sp = hall ? hall.querySelector('img') : null;
+    var spr = sp ? sp.getBoundingClientRect() : null;
+    lines.push('sprite0: ' + (sp ? ('complete:' + sp.complete + ' nat:' + sp.naturalWidth + 'x' + sp.naturalHeight) : 'NO') + ' rect: ' + (spr ? spr.left.toFixed(0) + ',' + spr.top.toFixed(0) + ' ' + spr.width.toFixed(0) + 'x' + spr.height.toFixed(0) : 'NO'));
+    var cx = sr ? sr.left + sr.width / 2 : 0, cy = sr ? sr.top + sr.height / 2 : 0;
+    var topEl = document.elementFromPoint(cx, cy);
+    lines.push('center top: ' + (topEl ? (topEl.tagName + '.' + (topEl.className && topEl.className.baseVal !== undefined ? topEl.className.baseVal : topEl.className) + '#' + topEl.id) : 'NONE'));
+    var pxStr = 'NOIMG';
+    try {
+      var pc = document.createElement('canvas'); pc.width = 1; pc.height = 1;
+      var pctx = pc.getContext('2d'); pctx.drawImage(bg, 0, 0, 1, 1);
+      var dd = pctx.getImageData(0, 0, 1, 1).data;
+      pxStr = 'rgba(' + dd[0] + ',' + dd[1] + ',' + dd[2] + ',' + dd[3] + ')';
+    } catch (e) { pxStr = 'THROW:' + e.message; }
+    lines.push('bg pixel: ' + pxStr);
     box.textContent = lines.join('\n');
   }
   window.addEventListener('load', function(){ setTimeout(report, 1500); });
