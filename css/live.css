@@ -1140,3 +1140,12 @@ body.obs-mode .stage-wrapper {
   .stage-wrapper { width: 100%; height: auto; aspect-ratio: 9 / 16; max-height: none; }
   .quick-dock { width: 100%; max-height: none; overflow-y: visible; }
 }
+
+/* ---- Nút toàn màn hình (dùng cho live: bấm là ẩn thanh địa chỉ + thanh điều hướng) ---- */
+#fsBtn {
+  position: fixed; top: 10px; right: 10px; z-index: 8000;
+  padding: 8px 12px; border-radius: 999px;
+  background: rgba(0,0,0,.55); color: #ffd97a;
+  border: 1px solid rgba(244,193,80,.5); font-size: 14px; cursor: pointer;
+}
+#fsBtn.fs-on { opacity: .3; padding: 6px 8px; font-size: 12px; }

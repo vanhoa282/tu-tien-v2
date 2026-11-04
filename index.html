@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="./css/live.css?v=20261104" />
 </head>
 <body>
-  <div class="app-workspace">
+  <button id="fsBtn" type="button" title="Toàn màn hình">⛶ <span class="fs-txt">Toàn màn hình</span></button>
+<div class="app-workspace">
     <!-- ====================================================================
          KHUNG 9:16 CHUẨN TIKTOK LIVE / OBS BROWSER SOURCE (1080 x 1920)
          ==================================================================== -->
@@ -291,6 +292,32 @@
   }
   window.addEventListener('load', function(){ setTimeout(report, 1500); });
   setTimeout(report, 3000);
+})();
+</script>
+
+<script>
+(function(){
+  var fsBtn = document.getElementById('fsBtn');
+  if (!fsBtn) return;
+  function toggleFS(){
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    } else {
+      var el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    }
+  }
+  fsBtn.addEventListener('click', toggleFS);
+  function syncFsBtn(){
+    var on = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    fsBtn.classList.toggle('fs-on', on);
+    var tx = fsBtn.querySelector('.fs-txt');
+    if (tx) tx.style.display = on ? 'none' : '';
+  }
+  document.addEventListener('fullscreenchange', syncFsBtn);
+  document.addEventListener('webkitfullscreenchange', syncFsBtn);
 })();
 </script>
 </body>
