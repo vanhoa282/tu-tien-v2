@@ -525,6 +525,13 @@
         break;
       }
 
+      case 'chantJoin': {
+        audio.playIncenseChime();
+        particles.spawnFloatingMerit(ev.isNew ? `+1 Linh Khí` : `🙏 Đã gia nhập`, 540, 920, '#ffe082');
+        animateWalkerOnCarpet(ev.user, ev.avatar, `🙏 ${ev.user} đã gia nhập — Nam Mô A Di Đà Phật`, ev.wish);
+        break;
+      }
+
       case 'grandCeremony': {
         doTribulationFlash();
         audio.playTempleBell(1.2);
