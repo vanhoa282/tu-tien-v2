@@ -72,7 +72,7 @@ body.obs-mode .stage-wrapper {
   height: 1920px;
   transform-origin: top left;
   overflow: hidden;
-  background: #120403 url(../assets/tutien_stage.webp) center top / cover no-repeat;
+  background: #120403 url(../assets/tutien_temple_hall.webp) center top / cover no-repeat;
   contain: layout paint;
 }
 
